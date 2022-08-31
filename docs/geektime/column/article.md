@@ -11,7 +11,7 @@
 </div>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 
@@ -26,14 +26,14 @@ const neighborRight = computed(() => {
   return article.value?.neighbors?.right || {}
 })
 
-console.log(axios)
-console.log(route)
+// console.log(axios)
+// console.log(route)
 
 const { column_id, article_id } = route.query
 
 function getArticles(column_id) {
   return new Promise((resolve, reject) => {
-    const baseUrl = location.protocol + '//' + location.host
+    const baseUrl = window.location.protocol + '//' + window.location.host
     axios({
       url: `${baseUrl}/geektime/column/list/${column_id}.json`,
       method: 'GET'
@@ -89,10 +89,16 @@ function jump(article_id, action) {
   // window.location.href = `./article.html?column_id=${column_id}&article_id=${article_id}`
 }
 
-async function init() {
+// async function init() {
+//   articles.value = await getArticles(column_id)
+//   article.value = getArticleById(article_id)
+//   console.log(article.value)
+// }
+// init()
+
+onMounted(async () => {
   articles.value = await getArticles(column_id)
   article.value = getArticleById(article_id)
   console.log(article.value)
-}
-init()
+})
 </script>
