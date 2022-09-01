@@ -10,9 +10,6 @@ export default defineClientConfig({
         columns: function() {
           return columns
         },
-        // articleIds: function() {
-        //   return articleIds
-        // },
       }
     })
   },
