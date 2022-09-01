@@ -3,7 +3,7 @@ import { defineUserConfig, defaultTheme } from 'vuepress'
 export default defineUserConfig({
   base: '/study/',
   lang: 'zh-CN',
-  title: 'Course',
+  title: 'Study',
   description: '这是我的第二个 VuePress 站点',
   // public: ''
   theme: defaultTheme({

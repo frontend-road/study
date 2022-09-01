@@ -1,6 +1,8 @@
 <p>column_id: {{column_id}}</p>
 <p>article_id: {{article_id}}</p>
 
+<h3 v-if="loading">loading...</h3>
+
 <h2>{{article.article_title}}</h2>
 <div v-html="article.article_content"></div>
 <div>
@@ -17,6 +19,7 @@ import axios from 'axios'
 
 const route = useRoute()
 const router = useRouter()
+const loading = ref(false)
 const articles = ref([])
 const article = ref({})
 const neighborLeft = computed(() => {
@@ -33,7 +36,8 @@ const { column_id, article_id } = route.query
 
 function getArticles(column_id) {
   return new Promise((resolve, reject) => {
-    const baseUrl = window.location.protocol + '//' + window.location.host + '/study'
+    // const baseUrl = window.location.protocol + '//' + window.location.host
+    const baseUrl = '/study'
     axios({
       url: `${baseUrl}/geektime/column/list/${column_id}.json`,
       method: 'GET'
@@ -97,7 +101,9 @@ function jump(article_id, action) {
 // init()
 
 onMounted(async () => {
+  loading.value = true
   articles.value = await getArticles(column_id)
+  loading.value = false
   article.value = getArticleById(article_id)
   console.log(article.value)
 })

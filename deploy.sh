@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+# VuePress 部署: https://vuepress.vuejs.org/zh/guide/deploy.html
+
 # 确保脚本抛出遇到的错误
 set -e
 

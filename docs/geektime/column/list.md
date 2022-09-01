@@ -1,5 +1,7 @@
 <p>column_id: {{column_id}}</p>
 
+<h3 v-if="loading">loading...</h3>
+
 <ul>
   <li v-for="item in articles">
     <a :href="`article?column_id=${column_id}&article_id=${item.article_id}`">{{item.article_title}}</a>
@@ -12,13 +14,16 @@ import { useRoute } from 'vue-router'
 import axios from 'axios'
 
 const route = useRoute()
+const loading = ref(false)
 const articles = ref([])
 
 const { column_id } = route.query
 
 function getArticles(column_id) {
   return new Promise((resolve, reject) => {
-    const baseUrl = location.protocol + '//' + location.host + '/study'
+    // const baseUrl = location.protocol + '//' + location.host
+    // const baseUrl = location.protocol + '//' + location.host + '/study'
+    const baseUrl = '/study'
     axios({
       url: `${baseUrl}/geektime/column/list/${column_id}.json`,
       method: 'GET'
@@ -40,6 +45,8 @@ function getArticles(column_id) {
 }
 
 onMounted(async () => {
+  loading.value = true
   articles.value = await getArticles(column_id)
+  loading.value = false
 })
 </script>
