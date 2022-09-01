@@ -33,7 +33,7 @@ const { column_id, article_id } = route.query
 
 function getArticles(column_id) {
   return new Promise((resolve, reject) => {
-    const baseUrl = window.location.protocol + '//' + window.location.host
+    const baseUrl = window.location.protocol + '//' + window.location.host + '/study'
     axios({
       url: `${baseUrl}/geektime/column/list/${column_id}.json`,
       method: 'GET'
