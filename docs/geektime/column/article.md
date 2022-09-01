@@ -13,9 +13,12 @@
 </div>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
+import hljs from 'highlight.js'
+// import 'highlight.js/styles/github.css'
+import 'highlight.js/styles/atom-one-dark.css'
 
 const route = useRoute()
 const router = useRouter()
@@ -106,5 +109,8 @@ onMounted(async () => {
   loading.value = false
   article.value = getArticleById(article_id)
   console.log(article.value)
+  nextTick(() => {
+    hljs.highlightAll()
+  })
 })
 </script>

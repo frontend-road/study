@@ -1,4 +1,5 @@
 import { defineUserConfig, defaultTheme } from 'vuepress'
+// import { prismjsPlugin } from '@vuepress/plugin-prismjs'
 
 export default defineUserConfig({
   base: '/study/',
@@ -32,5 +33,10 @@ export default defineUserConfig({
     //   '/': []
     // }
   }),
+  plugins: [
+    // prismjsPlugin({
+    //   // 配置项
+    // })
+  ],
   open: false,
 })
