@@ -76,6 +76,9 @@ function jump(article_id, action) {
   }
 
   article.value = getArticleById(article_id)
+  nextTick(() => {
+    hljs.highlightAll()
+  })
 
   // window.scroll({
   //   top: 0,
