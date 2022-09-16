@@ -1,52 +1,24 @@
 <p>column_id: {{column_id}}</p>
 
-<h3 v-if="loading">loading...</h3>
-
 <ul>
-  <li v-for="item in articles">
-    <a :href="`article?column_id=${column_id}&article_id=${item.article_id}`">{{item.article_title}}</a>
+  <li v-for="article in articles">
+    <a :href="`article?column_id=${column_id}&article_id=${article.id}`">{{article.t}}</a>
   </li>
 </ul>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { inject } from 'vue'
 import { useRoute } from 'vue-router'
-import axios from 'axios'
 
 const route = useRoute()
-const loading = ref(false)
-const articles = ref([])
 
 const { column_id } = route.query
 
-function getArticles(column_id) {
-  return new Promise((resolve, reject) => {
-    // const baseUrl = location.protocol + '//' + location.host
-    // const baseUrl = location.protocol + '//' + location.host + '/study'
-    const baseUrl = '/study'
-    axios({
-      url: `${baseUrl}/geektime/column/list/${column_id}.json`,
-      method: 'GET'
-    }).then(res => {
-      console.log('axios then:', res)
-      const { status, data } = res
-      if (status === 200) {
-        resolve(data)
-      } else {
-        alert('axios status: ' + status)
-        reject(res)
-      }
-    }).catch(err => {
-      console.error('axios catch:', err)
-      alert('catch error: ' + err.message)
-      reject(err)
-    })
-  })
-}
-
-onMounted(async () => {
-  loading.value = true
-  articles.value = await getArticles(column_id)
-  loading.value = false
-})
+// const articles = geektime.columns.find(column => column.id === +column_id).l
+const columns = inject('geektime_columns')
+// console.log('list columns:', columns)
+const column = columns.find(item => item.id === +column_id)
+// console.log('list column:', column)
+const articles = column ? (column.l || []) : []
+// console.log('list articles:', articles)
 </script>
