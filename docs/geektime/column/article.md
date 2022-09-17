@@ -13,9 +13,11 @@
 </div>
 
 <div class="comments-wrap">
-  <div class="index_comments">精选留言(18)</div>
+  <div class="index_comments">精选留言({{comments.length}})</div>
   <div v-for="comment in comments" :key="comment.id" class="comment_panel">
-    <img class="user_header" :src="comment.user_header" />
+    <!-- <img class="user_header" :src="comment.user_header" /> -->
+    <!-- TODO 图片懒加载 -->
+    <img class="user_header" />
     <div class="comment-main">
       <div class="user_name">{{comment.user_name}}</div>
       <div class="comment_topTag" v-if="comment.comment_is_top">置顶</div>
@@ -26,8 +28,14 @@
       <div class="comment_control">
         <div class="comment_ctime">{{formatTime(comment.comment_ctime)}}</div>
         <div class="comment_actions">
-          <div class="discussion_count">{{comment.discussion_count}}</div>
-          <div class="like_count">{{comment.like_count}}</div>
+          <div class="discussion_count">
+            <span class="iconfont icon-message"></span>
+            {{comment.discussion_count}}
+          </div>
+          <div class="like_count">
+            <span class="iconfont icon-praise"></span>
+            {{comment.like_count}}
+          </div>
         </div>
       </div>
     </div>
@@ -234,7 +242,13 @@ onMounted(async () => {
   color: #888;
 }
 .discussion_count {
+  display: flex;
+  align-items: center;
   margin-right: 44px;
+}
+.like_count {
+  display: flex;
+  align-items: center;
 }
 .discussion_count:hover, .like_count:hover {
   color: #fa8919;

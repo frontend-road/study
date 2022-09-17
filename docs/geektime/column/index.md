@@ -42,6 +42,6 @@ function handleSearch(evt) {
     font-size: 12px;
   }
   .column-not-finish {
-    color: #ff0;
+    color: #ed3838;
   }
 </style>
