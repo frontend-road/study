@@ -30,13 +30,16 @@
           <p class="comment_reply_content">{{reply.user_name ? reply.user_name + ': ' : ''}}<span v-html="reply.content"></span></p>
         </div>
         <div class="comment_control">
-          <div class="comment_ctime">{{formatTime(comment.comment_ctime)}}</div>
+          <div style="display: flex;">
+            <div class="comment_ctime">{{formatTime(comment.comment_ctime)}}</div>
+            <div class="comment_ctime">IP: {{comment.ip_address}}</div>
+          </div>
           <div class="comment_actions">
             <div class="comment_btnComment" :class="comment.expand ? 'comment_btnComment_on' : ''" @click="toggleDiscussion(comment)">
               <span class="iconfont icon-message"></span>
               <span v-if="comment.expand">收起</span>
               <template v-else>
-                <span v-if="comment.discussion_count >= 2">{{comment.discussion_count}}</span>
+                <span v-if="comment.discussion_count > 0">{{comment.discussion_count}}</span>
               </template>
             </div>
             <div class="comment_btnPraise" :class="comment.had_liked ? 'comment_btnPraise_on' : ''">
@@ -59,11 +62,14 @@
             <div class="comment_nest_info">
               <div class="comment_nest_userInfo">
                 <div class="comment_nest_userInfo_userName">{{item.author.nickname}}</div>
-                <div class="comment_nest_userInfo_mark" v-if="item.author.user_type === 2">作者</div>
+                <div class="comment_nest_userInfo_mark" v-if="getUserType(item.author.user_type)">{{getUserType(item.author.user_type)}}</div>
               </div>
               <div class="comment_nest_discussion_content" v-html="item.discussion.discussion_content"></div>
-              <div class="comment_nest_control">
-                <div class="comment_nest_control_time">{{formatTime(item.discussion.ctime)}}</div>
+              <div class="comment_control">
+                <div style="display: flex;">
+                  <div class="comment_ctime">{{formatTime(item.discussion.ctime)}}</div>
+                  <div class="comment_ctime">IP: {{item.discussion.ip_address}}</div>
+                </div>
                 <div class="comment_actions">
                   <div class="comment_btnComment">
                     <span class="iconfont icon-message"></span>评论
@@ -85,13 +91,17 @@
               <div class="comment_nest_info">
                 <div class="comment_nest_userInfo">
                   <div class="comment_nest_userInfo_userName">{{child_discussion.author.nickname}}</div>
-                  <div class="comment_nest_userInfo_mark" v-if="child_discussion.author.user_type === 2">作者</div>
+                  <div class="comment_nest_userInfo_mark" v-if="getUserType(child_discussion.author.user_type)">{{getUserType(child_discussion.author.user_type)}}</div>
                   <div class="comment_nest_toIcon iconfont icon-arrow-right-filling" style="margin-left: 4px; margin-right: 4px;font-size: 12px;"></div>
                   <div class="comment_nest_userInfo_userName">{{child_discussion.reply_author.nickname}}</div>
+                  <div class="comment_nest_userInfo_mark" v-if="getUserType(child_discussion.reply_author.user_type)">{{getUserType(child_discussion.reply_author.user_type)}}</div>
                 </div>
                 <div class="comment_nest_discussion_content" v-html="child_discussion.discussion.discussion_content"></div>
-                <div class="comment_nest_control">
-                  <div class="comment_nest_control_time">{{formatTime(child_discussion.discussion.ctime)}}</div>
+                <div class="comment_control">
+                  <div style="display: flex;">
+                    <div class="comment_ctime">{{formatTime(child_discussion.discussion.ctime)}}</div>
+                    <div class="comment_ctime">IP: {{child_discussion.discussion.ip_address}}</div>
+                  </div>
                   <div class="comment_actions">
                     <div class="comment_btnComment">
                       <span class="iconfont icon-message"></span>评论
@@ -195,6 +205,15 @@ async function jump(column_id, article_id, action) {
   // window.location.href = `./article.html?column_id=${column_id}&article_id=${article_id}`
 }
 
+function getUserType(user_type) {
+  const typeMap = {
+    2: '作者',
+    4: '编辑',
+    8: '编辑',
+  }
+  return typeMap[user_type] || ''
+}
+
 function formatTime(time) {
   const _t = new Date(time * 1000)
   const y = _t.getFullYear()
@@ -218,7 +237,7 @@ function formatTime(time) {
 }
 
 function toggleDiscussion(comment) {
-  if (comment.discussion_count >= 2) {
+  if (comment.discussion_count > 0) {
     comment.expand = !comment.expand
   }
 }
@@ -340,8 +359,9 @@ onMounted(async () => {
   margin-top: 15px;
 }
 .comment_ctime {
-  color: #b2b2b2;
+  margin-right: 10px;
   font-size: 14px;
+  color: #b2b2b2;
 }
 .comment_actions {
   display: flex;
@@ -430,17 +450,7 @@ onMounted(async () => {
   font-weight: 400;
   color: #505050;
 }
-.comment_nest_control {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 15px;
-}
-.comment_nest_control_time {
-  font-size: 14px;
-  color: #b2b2b2;
-}
+
 .comment_actions {
   display: flex;
   align-items: center;
