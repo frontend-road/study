@@ -15,26 +15,92 @@
 <div class="comments-wrap">
   <div class="index_comments">精选留言({{comments.length}})</div>
   <div v-for="comment in comments" :key="comment.id" class="comment_panel">
-    <!-- <img class="user_header" :src="comment.user_header" /> -->
-    <!-- TODO 图片懒加载 -->
-    <img class="user_header" />
-    <div class="comment-main">
-      <div class="user_name">{{comment.user_name}}</div>
-      <div class="comment_topTag" v-if="comment.comment_is_top">置顶</div>
-      <div class="comment_content" v-html="comment.comment_content"></div>
-      <div class="comment_replies" v-if="comment.replies && comment.replies.length">
-        <div class="comment_reply_content" v-html="comment.replies[0].content"></div>
+    <div class="comment_main">
+      <div class="avatar" :class="comment.is_pvip ? 'avatar-pvip' : ''" style="width: 30px; height: 30px;">
+        <!-- TODO 图片懒加载 -->
+        <!-- <img class="avatar-img" /> -->
+        <img class="avatar" :src="comment.user_header" />
+        <i v-if="comment.is_pvip" class="iconfont icon-vip-fill pvip-logo"></i>
       </div>
-      <div class="comment_control">
-        <div class="comment_ctime">{{formatTime(comment.comment_ctime)}}</div>
-        <div class="comment_actions">
-          <div class="discussion_count">
-            <span class="iconfont icon-message"></span>
-            {{comment.discussion_count}}
+      <div class="comment_info">
+        <div class="user_name">{{comment.user_name}}</div>
+        <div class="comment_topTag" v-if="comment.comment_is_top">置顶</div>
+        <div class="comment_content" v-html="comment.comment_content"></div>
+        <div class="comment_replies" v-if="comment.replies && comment.replies.length">
+          <div class="comment_reply_content" v-html="comment.replies[0].content"></div>
+        </div>
+        <div class="comment_control">
+          <div class="comment_ctime">{{formatTime(comment.comment_ctime)}}</div>
+          <div class="comment_actions">
+            <div class="comment_btnComment" @click="toggleDiscussion(comment)">
+              <span class="iconfont icon-message"></span>
+              <span v-if="comment.discussion_count >= 2">{{comment.discussion_count}}</span>
+            </div>
+            <div class="comment_btnPraise" :class="comment.had_liked ? 'comment_btnPraise_on' : ''">
+              <span class="iconfont icon-praise"></span>
+              <span v-if="comment.like_count > 0">{{comment.like_count}}</span>
+            </div>
           </div>
-          <div class="like_count">
-            <span class="iconfont icon-praise"></span>
-            {{comment.like_count}}
+        </div>
+      </div>
+    </div>
+    <div class="comment_nest_wrap" v-if="comment.expand">
+      <div class="comment_nest_title">评论 {{comment.discussion_count}}</div>
+      <div class="comment_nest_list">
+        <div class="comment_nest_rootItem" v-for="item in comment.discussions" :key="item.discussion.id">
+          <div class="comment_nest_commentRoot">
+            <div class="avatar" :class="item.author.is_pvip ? 'avatar-pvip' : ''" style="width: 30px; height: 30px;">
+              <img class="avatar" :src="item.author.avatar" />
+              <i v-if="item.author.is_pvip" class="iconfont icon-vip-fill pvip-logo"></i>
+            </div>
+            <div class="comment_nest_info">
+              <div class="comment_nest_userInfo">
+                <div class="comment_nest_userInfo_userName">{{item.author.nickname}}</div>
+                <div class="comment_nest_userInfo_mark" v-if="item.author.user_type === 2">作者</div>
+              </div>
+              <div class="comment_nest_discussion_content" v-html="item.discussion.discussion_content"></div>
+              <div class="comment_nest_control">
+                <div class="comment_nest_control_time">{{formatTime(item.discussion.ctime)}}</div>
+                <div class="comment_actions">
+                  <div class="comment_btnComment">
+                    <span class="iconfont icon-message"></span>评论
+                  </div>
+                  <div class="comment_btnPraise" :class="item.discussion.is_liked ? 'comment_btnPraise_on' : ''">
+                    <span class="iconfont icon-praise"></span>
+                    <span v-if="item.discussion.likes_number > 0">{{item.discussion.likes_number}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="comment_nest_commentChildWrap" v-if="item.child_discussion_number > 0">
+            <div class="comment_nest_commentChildItem" v-for="child_discussion in item.child_discussions" :key="child_discussion.discussion.id">
+              <div class="avatar" :class="child_discussion.author.is_pvip ? 'avatar-pvip' : ''" style="width: 30px; height: 30px;">
+                <img class="avatar" :src="child_discussion.author.avatar" />
+                <i v-if="child_discussion.author.is_pvip" class="iconfont icon-vip-fill pvip-logo"></i>
+              </div>
+              <div class="comment_nest_info">
+                <div class="comment_nest_userInfo">
+                  <div class="comment_nest_userInfo_userName">{{child_discussion.author.nickname}}</div>
+                  <div class="comment_nest_userInfo_mark" v-if="child_discussion.author.user_type === 2">作者</div>
+                  <div class="comment_nest_toIcon iconfont icon-arrow-right-filling" style="margin-left: 4px; margin-right: 4px;font-size: 12px;"></div>
+                  <div class="comment_nest_userInfo_userName">{{child_discussion.reply_author.nickname}}</div>
+                </div>
+                <div class="comment_nest_discussion_content" v-html="child_discussion.discussion.discussion_content"></div>
+                <div class="comment_nest_control">
+                  <div class="comment_nest_control_time">{{formatTime(child_discussion.discussion.ctime)}}</div>
+                  <div class="comment_actions">
+                    <div class="comment_btnComment">
+                      <span class="iconfont icon-message"></span>评论
+                    </div>
+                    <div class="comment_btnPraise" :class="child_discussion.discussion.is_liked ? 'comment_btnPraise_on' : ''">
+                      <span class="iconfont icon-praise"></span>
+                      <span v-if="child_discussion.discussion.likes_number > 0">{{child_discussion.discussion.likes_number}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -61,6 +127,7 @@ const neighborRight = computed(() => {
   return article.value?.neighbors?.right || {}
 })
 const comments = computed(() => {
+  // return (article.value?.comments || []).map(item => ({ ...item, expand: false }))
   return article.value?.comments || []
 })
 
@@ -76,7 +143,8 @@ function getArticle(column_id, article_id) {
     }).then(res => {
       console.log('[getArticle] axios then:', res)
       const { status, data } = res
-      if (status === 200) {
+      if (status === 200 && data) {
+        data.comments = (data.comments || []).map(item => ({ ...item, expand: false }))
         resolve(data)
       } else {
         alert('[getArticle] axios status:' + status)
@@ -136,6 +204,12 @@ function formatTime(time) {
   ].join('-')
 }
 
+function toggleDiscussion(comment) {
+  if (comment.discussion_count >= 2) {
+    comment.expand = !comment.expand
+  }
+}
+
 onMounted(async () => {
   loading.value = true
   article.value = await getArticle(column_id, article_id)
@@ -161,19 +235,40 @@ onMounted(async () => {
   margin-bottom: 1rem;
 }
 .comment_panel {
-  display: flex;
   margin-bottom: 20px;
   border-bottom: 1px solid #e9e9e999;
   color: #adbac7;
 }
-.user_header {
+.comment_main {
+  display: flex;
+}
+.avatar {
+  position: relative;
   flex-shrink: 0;
-  width: 34px;
-  height: 34px;
   border-radius: 50%;
   background-color: #999;
 }
-.comment-main {
+.avatar.avatar-pvip {
+  padding: 2px;
+  border: 0.5px solid #fdd397;
+}
+.avatar-img {
+  display: block;
+  -o-object-fit: contain;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.pvip-logo {
+  position: absolute;
+  right: -1px;
+  bottom: 0;
+  width: 13px;
+  height: 13px;
+  color: #fdd397;
+}
+.comment_info {
   flex-grow: 1;
   margin-left: 0.5rem;
   padding-bottom: 20px;
@@ -242,16 +337,131 @@ onMounted(async () => {
   color: #888;
 }
 .discussion_count {
-  display: flex;
-  align-items: center;
   margin-right: 44px;
 }
+.discussion_count,
 .like_count {
   display: flex;
   align-items: center;
-}
-.discussion_count:hover, .like_count:hover {
-  color: #fa8919;
   cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.discussion_count:hover,
+.like_count:hover {
+  color: #fa8919;
+}
+
+.comment_nest_wrap {
+  padding-bottom: 38px;
+  border-radius: 4px;
+  box-shadow: 0 0 8px 1px rgb(140 163 191 / 18%);
+}
+.comment_nest_title {
+  padding: 10px 0 10px 28px;
+  border-bottom: 1px solid #e9e9e9;
+  font-size: 14px;
+  font-weight: 400;
+  color: #353535;
+}
+.comment_nest_list {
+  padding: 0 28px;
+}
+.comment_nest_rootItem {
+  width: 100%;
+  margin-top: 20px;
+  border-bottom: 1px solid #e9e9e9;
+}
+.comment_nest_commentRoot {
+  display: flex;
+}
+.comment_nest_info {
+  flex-grow: 1;
+  margin-left: 0.5rem;
+  padding-bottom: 14px;
+}
+.comment_nest_userInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.comment_nest_userInfo_userName {
+  display: flex;
+  align-items: center;
+  line-height: 34px;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgb(178, 178, 178);
+}
+.comment_nest_userInfo_mark {
+  width: 34px;
+  height: 18px;
+  margin-left: 4px;
+  line-height: 18px;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 500;
+  text-align: center;
+  color: #fa8919;
+  background: #fbf5ee;
+}
+.comment_nest_discussion_content {
+  margin-top: 10px;
+  line-height: 24px;
+  -webkit-font-smoothing: antialiased;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 14px;
+  font-weight: 400;
+  color: #505050;
+}
+.comment_nest_control {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+.comment_nest_control_time {
+  font-size: 14px;
+  color: #b2b2b2;
+}
+.comment_actions {
+  display: flex;
+  align-items: center;
+}
+.comment_btnComment,
+.comment_btnPraise {
+  margin-left: 30px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-size: 12px;
+  font-weight: 400;
+  color: #888;
+}
+.comment_btnPraise.comment_btnPraise_on {
+  color: #fa8919;
+}
+.comment_btnComment:hover,
+.comment_btnPraise:hover {
+  color: #fa8919;
+}
+
+.comment_nest_commentChildWrap {
+  margin-left: 40px;
+}
+.comment_nest_commentChildItem {
+  display: flex;
+  padding-top: 20px;
+  border-top: 1px solid #e9e9e9;
+  transition: border-top .3s ease;
 }
 </style>
