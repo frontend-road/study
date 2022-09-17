@@ -254,6 +254,10 @@ onMounted(async () => {
 </script>
 
 <style>
+video {
+  max-width: 100%;
+}
+
 .comments-wrap {
   margin-top: 20px;
 }
