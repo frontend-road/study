@@ -26,15 +26,18 @@
         <div class="user_name">{{comment.user_name}}</div>
         <div class="comment_topTag" v-if="comment.comment_is_top">置顶</div>
         <div class="comment_content" v-html="comment.comment_content"></div>
-        <div class="comment_replies" v-if="comment.replies && comment.replies.length">
-          <div class="comment_reply_content" v-html="comment.replies[0].content"></div>
+        <div class="comment_replies" v-if="comment.replies && comment.replies.length" v-for="reply in comment.replies">
+          <p class="comment_reply_content">{{reply.user_name ? reply.user_name + ': ' : ''}}<span v-html="reply.content"></span></p>
         </div>
         <div class="comment_control">
           <div class="comment_ctime">{{formatTime(comment.comment_ctime)}}</div>
           <div class="comment_actions">
-            <div class="comment_btnComment" @click="toggleDiscussion(comment)">
+            <div class="comment_btnComment" :class="comment.expand ? 'comment_btnComment_on' : ''" @click="toggleDiscussion(comment)">
               <span class="iconfont icon-message"></span>
-              <span v-if="comment.discussion_count >= 2">{{comment.discussion_count}}</span>
+              <span v-if="comment.expand">收起</span>
+              <template v-else>
+                <span v-if="comment.discussion_count >= 2">{{comment.discussion_count}}</span>
+              </template>
             </div>
             <div class="comment_btnPraise" :class="comment.had_liked ? 'comment_btnPraise_on' : ''">
               <span class="iconfont icon-praise"></span>
@@ -195,13 +198,23 @@ async function jump(column_id, article_id, action) {
 function formatTime(time) {
   const _t = new Date(time * 1000)
   const y = _t.getFullYear()
-  const m = _t.getMonth() + 1
+  const M = _t.getMonth() + 1
   const d = _t.getDate()
+  const h = _t.getHours()
+  const m = _t.getMinutes()
+  const s = _t.getSeconds()
   return [
-    y,
-    m >= 10 ? m : '0' + m,
-    d >= 10 ? d : '0' + d,
-  ].join('-')
+    [
+      y,
+      M >= 10 ? M : '0' + M,
+      d >= 10 ? d : '0' + d,
+    ].join('-'),
+    [
+      h >= 10 ? h : '0' + h,
+      m >= 10 ? m : '0' + m,
+      s >= 10 ? s : '0' + s,
+    ].join(':'),
+  ].join(' ')
 }
 
 function toggleDiscussion(comment) {
@@ -447,6 +460,7 @@ onMounted(async () => {
   font-weight: 400;
   color: #888;
 }
+.comment_btnComment.comment_btnComment_on,
 .comment_btnPraise.comment_btnPraise_on {
   color: #fa8919;
 }
