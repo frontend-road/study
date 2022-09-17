@@ -1,5 +1,5 @@
 import { provide, onMounted } from 'vue'
-import { defineClientConfig } from '@vuepress/client'
+import { defineClientConfig, withBase } from '@vuepress/client'
 import columns from './public/geektime/column/columns.json'
 
 // https://v2.vuepress.vuejs.org/zh/advanced/cookbook/usage-of-client-config.html
@@ -24,7 +24,7 @@ export default defineClientConfig({
       const link = document.createElement('link')
       link.setAttribute('rel', 'stylesheet')
       link.setAttribute('type', 'text/css')
-      link.setAttribute('href', '/fonts/iconfont/iconfont.css')
+      link.setAttribute('href', withBase('/fonts/iconfont/iconfont.css'))
       head.appendChild(link)
     })
   },
