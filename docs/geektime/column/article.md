@@ -257,6 +257,16 @@ onMounted(async () => {
 video {
   max-width: 100%;
 }
+pre {
+  padding: 0!important;
+}
+pre code {
+  font-size: 14px!important;
+}
+.hljs{
+  color: #abb2bf!important;
+  background: #282c34!important;
+}
 
 .comments-wrap {
   margin-top: 20px;
