@@ -30,9 +30,9 @@
           <p class="comment_reply_content">{{reply.user_name ? reply.user_name + ': ' : ''}}<span v-html="reply.content"></span></p>
         </div>
         <div class="comment_control">
-          <div style="display: flex;">
+          <div>
             <div class="comment_ctime">{{formatTime(comment.comment_ctime)}}</div>
-            <div class="comment_ctime">IP: {{comment.ip_address}}</div>
+            <div class="comment_ctime" v-if="comment.ip_address">IP: {{comment.ip_address}}</div>
           </div>
           <div class="comment_actions">
             <div class="comment_btnComment" :class="comment.expand ? 'comment_btnComment_on' : ''" @click="toggleDiscussion(comment)">
@@ -66,9 +66,9 @@
               </div>
               <div class="comment_nest_discussion_content" v-html="item.discussion.discussion_content"></div>
               <div class="comment_control">
-                <div style="display: flex;">
+                <div>
                   <div class="comment_ctime">{{formatTime(item.discussion.ctime)}}</div>
-                  <div class="comment_ctime">IP: {{item.discussion.ip_address}}</div>
+                  <div class="comment_ctime" v-if="item.discussion.ip_address">IP: {{item.discussion.ip_address}}</div>
                 </div>
                 <div class="comment_actions">
                   <div class="comment_btnComment">
@@ -98,9 +98,9 @@
                 </div>
                 <div class="comment_nest_discussion_content" v-html="child_discussion.discussion.discussion_content"></div>
                 <div class="comment_control">
-                  <div style="display: flex;">
+                  <div>
                     <div class="comment_ctime">{{formatTime(child_discussion.discussion.ctime)}}</div>
-                    <div class="comment_ctime">IP: {{child_discussion.discussion.ip_address}}</div>
+                    <div class="comment_ctime" v-if="child_discussion.discussion.ip_address">IP: {{child_discussion.discussion.ip_address}}</div>
                   </div>
                   <div class="comment_actions">
                     <div class="comment_btnComment">
@@ -256,13 +256,24 @@ onMounted(() => {
 video {
   max-width: 100%;
 }
+pre {
+  padding: 0!important;
+}
+pre code {
+  font-size: 14px!important;
+}
+.hljs{
+  color: #abb2bf!important;
+  background: #282c34!important;
+}
 
 .comments-wrap {
   margin-top: 20px;
 }
 .index_comments {
   font-size: 16px;
-  color: #404040;
+  /* color: #404040; */
+  color: var(--c-text);
   font-weight: 500;
   -webkit-font-smoothing: antialiased;
   position: relative;
@@ -310,8 +321,9 @@ video {
 }
 .user_name {
   font-size: 16px;
-  color: #3d464d;
   font-weight: 500;
+  /* color: #3d464d; */
+  color: var(--c-text);
   -webkit-font-smoothing: antialiased;
   line-height: 34px;
 }
@@ -332,7 +344,8 @@ video {
 }
 .comment_content {
   margin-top: 12px;
-  color: #505050;
+  /* color: #505050; */
+  color: var(--c-text-lighter);
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
   font-weight: 400;
@@ -343,10 +356,12 @@ video {
 .comment_replies {
   margin-top: 10px;
   border-radius: 4px;
-  background-color: #f6f7fb;
+  /* background-color: #f6f7fb; */
+  background-color: var(--c-details-bg);
 }
 .comment_reply_content {
-  color: #505050;
+  /* color: #505050; */
+  color: var(--c-text-lighter);
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
   font-weight: 400;
@@ -363,7 +378,7 @@ video {
 }
 .comment_ctime {
   margin-right: 10px;
-  font-size: 14px;
+  font-size: 12px;
   color: #b2b2b2;
 }
 .comment_actions {
@@ -400,7 +415,8 @@ video {
   border-bottom: 1px solid #e9e9e9;
   font-size: 14px;
   font-weight: 400;
-  color: #353535;
+  /* color: #353535; */
+  color: var(--c-text-lighter);
 }
 .comment_nest_list {
   padding: 0 28px;
@@ -451,7 +467,8 @@ video {
   word-break: break-word;
   font-size: 14px;
   font-weight: 400;
-  color: #505050;
+  /* color: #505050; */
+  color: var(--c-text-lighter);
 }
 
 .comment_actions {
@@ -460,7 +477,7 @@ video {
 }
 .comment_btnComment,
 .comment_btnPraise {
-  margin-left: 30px;
+  margin-left: 20px;
   display: flex;
   align-items: center;
   text-decoration: none;
