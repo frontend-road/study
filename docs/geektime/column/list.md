@@ -7,23 +7,19 @@
 </ul>
 
 <script setup>
-import { inject, onMounted } from 'vue'
+import { ref, inject, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
-const { column_id } = route.query
-
-// const articles = geektime.columns.find(column => column.id === +column_id).l
 const columns = inject('geektime_columns')
-// console.log('list columns:', columns)
+const { column_id } = route.query
+const articles = ref([])
 
 onMounted(() => {
   const column = columns.find(item => item.id === +column_id)
-  // console.log('list column:', column)
   const columnName = column ? column.n : ''
-  const articles = column ? (column.l || []) : []
-  // console.log('list articles:', articles)
+  articles.value = column ? (column.l || []) : []
   document.title = columnName
 })
 </script>
