@@ -144,26 +144,34 @@ const comments = computed(() => {
   return article.value?.comments || []
 })
 
-const { column_id, article_id } = route.query
+// const { column_id, article_id } = route.query
+const column_id = computed(() => route.query.column_id)
+const article_id = computed(() => route.query.article_id)
 // const baseUrl = window.location.protocol + '//' + window.location.host
 const baseUrl = '/study'
 
 function getArticle(column_id, article_id) {
   return new Promise((resolve, reject) => {
+    loading.value = true
     axios({
       url: `${baseUrl}/geektime/column/list/${column_id}/${article_id}.json`,
       method: 'GET'
     }).then(res => {
+      loading.value = false
       console.log('[getArticle] axios then:', res)
       const { status, data } = res
       if (status === 200 && data) {
         data.comments = (data.comments || []).map(item => ({ ...item, expand: false }))
+        document.title = data.title
+        article.value = data
+        nextTick(() => hljs.highlightAll())
         resolve(data)
       } else {
         alert('[getArticle] axios status:' + status)
         reject(res)
       }
     }).catch(err => {
+      loading.value = false
       console.error('[getArticle] axios catch:', err)
       alert('[getArticle] catch error:' + err.message)
       reject(err)
@@ -181,10 +189,7 @@ async function jump(column_id, article_id, action) {
     return
   }
 
-  article.value = await getArticle(column_id, article_id)
-  nextTick(() => {
-    hljs.highlightAll()
-  })
+  await getArticle(column_id, article_id)
 
   // window.scroll({
   //   top: 0,
@@ -242,14 +247,8 @@ function toggleDiscussion(comment) {
   }
 }
 
-onMounted(async () => {
-  loading.value = true
-  article.value = await getArticle(column_id, article_id)
-  loading.value = false
-  // console.log(article.value)
-  nextTick(() => {
-    hljs.highlightAll()
-  })
+onMounted(() => {
+  getArticle(column_id.value, article_id.value)
 })
 </script>
 

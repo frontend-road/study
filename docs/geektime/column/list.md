@@ -1,4 +1,4 @@
-<p>column_id: {{column_id}}</p>
+<p>column: {{columnName}} ({{column_id}})</p>
 
 <ul>
   <li v-for="article in articles">
@@ -19,6 +19,8 @@ const columns = inject('geektime_columns')
 // console.log('list columns:', columns)
 const column = columns.find(item => item.id === +column_id)
 // console.log('list column:', column)
+const columnName = column ? column.n : ''
 const articles = column ? (column.l || []) : []
 // console.log('list articles:', articles)
+document.title = columnName
 </script>

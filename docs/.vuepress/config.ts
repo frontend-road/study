@@ -7,7 +7,7 @@ export default defineUserConfig({
   base,
   lang: 'zh-CN',
   title: 'Study',
-  description: '这是我的第二个 VuePress 站点',
+  description: 'Hello World',
   /**
    * 注意：这种方式在 deploy 时会报错，改为在 client.ts 中注入
    * 向客户端代码传递数据: https://v2.vuepress.vuejs.org/zh/advanced/cookbook/passing-data-to-client-code.html
