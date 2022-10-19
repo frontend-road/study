@@ -7,7 +7,7 @@
 </ul>
 
 <script setup>
-import { inject } from 'vue'
+import { inject, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
@@ -17,10 +17,13 @@ const { column_id } = route.query
 // const articles = geektime.columns.find(column => column.id === +column_id).l
 const columns = inject('geektime_columns')
 // console.log('list columns:', columns)
-const column = columns.find(item => item.id === +column_id)
-// console.log('list column:', column)
-const columnName = column ? column.n : ''
-const articles = column ? (column.l || []) : []
-// console.log('list articles:', articles)
-document.title = columnName
+
+onMounted(() => {
+  const column = columns.find(item => item.id === +column_id)
+  // console.log('list column:', column)
+  const columnName = column ? column.n : ''
+  const articles = column ? (column.l || []) : []
+  // console.log('list articles:', articles)
+  document.title = columnName
+})
 </script>
