@@ -19,7 +19,8 @@
       <div class="avatar" :class="comment.is_pvip ? 'avatar-pvip' : ''" style="width: 30px; height: 30px;">
         <!-- TODO 图片懒加载 -->
         <!-- <img class="avatar-img" /> -->
-        <img class="avatar" :src="comment.user_header" />
+        <!-- <img class="avatar" :src="comment.user_header" /> -->
+        <span class="avatar"></span>
         <i v-if="comment.is_pvip" class="iconfont icon-vip-fill pvip-logo"></i>
       </div>
       <div class="comment_info">
@@ -56,7 +57,8 @@
         <div class="comment_nest_rootItem" v-for="item in comment.discussions" :key="item.discussion.id">
           <div class="comment_nest_commentRoot">
             <div class="avatar" :class="item.author.is_pvip ? 'avatar-pvip' : ''" style="width: 30px; height: 30px;">
-              <img class="avatar" :src="item.author.avatar" />
+              <!-- <img class="avatar" :src="item.author.avatar" /> -->
+              <span class="avatar"></span>
               <i v-if="item.author.is_pvip" class="iconfont icon-vip-fill pvip-logo"></i>
             </div>
             <div class="comment_nest_info">
@@ -85,7 +87,8 @@
           <div class="comment_nest_commentChildWrap" v-if="item.child_discussion_number > 0">
             <div class="comment_nest_commentChildItem" v-for="child_discussion in item.child_discussions" :key="child_discussion.discussion.id">
               <div class="avatar" :class="child_discussion.author.is_pvip ? 'avatar-pvip' : ''" style="width: 30px; height: 30px;">
-                <img class="avatar" :src="child_discussion.author.avatar" />
+                <!-- <img class="avatar" :src="child_discussion.author.avatar" /> -->
+                <span class="avatar"></span>
                 <i v-if="child_discussion.author.is_pvip" class="iconfont icon-vip-fill pvip-logo"></i>
               </div>
               <div class="comment_nest_info">
