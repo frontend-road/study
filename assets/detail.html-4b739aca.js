@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-11d63754","path":"/geektime/column/detail.html","title":"","lang":"zh-CN","frontmatter":{},"headers":[],"git":{"updatedTime":1679735497000,"contributors":[{"name":"yusong zhou","email":"yusong.zhou@maimob.cn","commits":1}]},"filePathRelative":"geektime/column/detail.md"}');export{e as data};

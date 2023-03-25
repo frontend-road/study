@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-cbcc8bca","path":"/geektime/daily/","title":"每日一课","lang":"zh-CN","frontmatter":{},"headers":[],"git":{"updatedTime":1661964328000,"contributors":[{"name":"root","email":"root@squirrel.localdomain","commits":1}]},"filePathRelative":"geektime/daily/index.md"}');export{e as data};
