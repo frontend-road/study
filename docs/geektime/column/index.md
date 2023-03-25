@@ -8,7 +8,7 @@
 
 <ul>
   <li v-for="(item, index) in columns">
-    <a class="column-name" :href="`list?column_id=${item.id}`">{{index + 1}}. {{item.n}}</a>
+    <a class="column-name" :href="`detail?column_id=${item.id}`">{{index + 1}}. {{item.n}}</a>
     <span v-if="item.f" class="column-status column-has-finish">已完结：共{{item.c}}讲</span>
     <span v-else class="column-status column-not-finish">未完结：共{{item.c}}讲，已发布{{item.p}}讲</span>
   </li>

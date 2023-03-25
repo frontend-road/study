@@ -14,12 +14,13 @@ const route = useRoute()
 
 const columns = inject('geektime_columns')
 const { column_id } = route.query
+const columnName = ref('')
 const articles = ref([])
 
 onMounted(() => {
   const column = columns.find(item => item.id === +column_id)
-  const columnName = column ? column.n : ''
+  columnName.value = column ? column.n : ''
   articles.value = column ? (column.l || []) : []
-  document.title = columnName
+  document.title = columnName.value
 })
 </script>
