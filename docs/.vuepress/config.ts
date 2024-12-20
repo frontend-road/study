@@ -1,9 +1,12 @@
-import { defineUserConfig, defaultTheme } from 'vuepress'
+import { defineUserConfig } from 'vuepress'
+import { viteBundler } from '@vuepress/bundler-vite'
+import { defaultTheme } from '@vuepress/theme-default'
 // import { prismjsPlugin } from '@vuepress/plugin-prismjs'
 // import columns from './public/geektime/column/columns.json'
 
 const base = '/study/'
 export default defineUserConfig({
+  bundler: viteBundler(),
   base,
   lang: 'zh-CN',
   title: 'Study',
