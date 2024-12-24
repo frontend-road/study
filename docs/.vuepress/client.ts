@@ -1,8 +1,8 @@
 import { provide, onMounted } from 'vue'
-import { defineClientConfig, withBase } from '@vuepress/client'
+import { defineClientConfig, withBase } from 'vuepress/client'
 import columns from './public/geektime/column/columns.json'
 
-// https://v2.vuepress.vuejs.org/zh/advanced/cookbook/usage-of-client-config.html
+// https://vuepress.vuejs.org/zh/advanced/cookbook/usage-of-client-config.html
 export default defineClientConfig({
   // enhance({ app, router, siteData }) {
   //   // console.log('client:', app, router, siteData)
