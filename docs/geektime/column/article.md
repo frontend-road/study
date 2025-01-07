@@ -1,16 +1,25 @@
-<p>column_id: {{column_id}}</p>
+<!-- <p>courseType: {{courseType}}</p>
+<p>course_id: {{course_id}}</p>
 <p>article_id: {{article_id}}</p>
+
+{{ currentArticleIndex }}
+<p>neighborLeft: {{neighborLeft}}</p>
+<p>neighborRight: {{neighborRight}}</p> -->
 
 <h3 v-if="loading">loading...</h3>
 
-<h2>{{article.title}}</h2>
+<h1>{{article.title}}</h1>
+<div v-if="courseType === 'video' && article.content" style="padding-top:20px;padding-bottom:20px;font-size:20px;font-weight:500;">本节摘要</div>
 <div v-html="article.content"></div>
+
+<hr>
 <div>
-  <button @click="jump(column_id, neighborLeft.id, 'prev')">上一讲: {{neighborLeft.article_title}}</button>
+  <button @click="jump(courseType, course_id, neighborLeft.id, 'prev')">上一讲: {{neighborLeft.t}}</button>
   <br />
   <br />
-  <button @click="jump(column_id, neighborRight.id, 'next')">下一讲: {{neighborRight.article_title}}</button>
+  <button @click="jump(courseType, course_id, neighborRight.id, 'next')">下一讲: {{neighborRight.t}}</button>
 </div>
+<hr>
 
 <div class="comments-wrap">
   <div class="index_comments">精选留言({{comments.length}})</div>
@@ -125,43 +134,80 @@
 </div>
 
 <script setup>
-import { ref, computed, onMounted, nextTick } from 'vue'
+import { ref, computed, onMounted, nextTick, inject } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 import hljs from 'highlight.js'
 // import 'highlight.js/styles/github.css'
 import 'highlight.js/styles/atom-one-dark.css'
 
+// const baseUrl = window.location.protocol + '//' + window.location.host
+const baseUrl = '/study'
+
+const columns = inject('geektime_columns')
+const videoCourses = inject('geektime_videoCourses')
+
 const route = useRoute()
 const router = useRouter()
 const loading = ref(false)
 const article = ref({})
-const neighborLeft = computed(() => {
-  return article.value?.neighbors?.left || {}
-})
-const neighborRight = computed(() => {
-  return article.value?.neighbors?.right || {}
-})
+// const neighborLeft = computed(() => {
+//   return article.value?.neighbors?.left || {}
+// })
+// const neighborRight = computed(() => {
+//   return article.value?.neighbors?.right || {}
+// })
 const comments = computed(() => {
   // return (article.value?.comments || []).map(item => ({ ...item, expand: false }))
   return article.value?.comments || []
 })
 
-// const { column_id, article_id } = route.query
-const column_id = computed(() => route.query.column_id)
+// const { type, course_id, article_id } = route.query
+const courseType = computed(() => route.query.type)
+const course_id = computed(() => route.query.course_id)
 const article_id = computed(() => route.query.article_id)
-// const baseUrl = window.location.protocol + '//' + window.location.host
-const baseUrl = '/study'
 
-function getArticle(column_id, article_id) {
+const courses = computed(() => {
+  if (courseType.value === 'column') {
+    return columns
+  } else if (courseType.value === 'video') {
+    return videoCourses
+  }
+})
+const course = computed(() => {
+  if (courses.value) {
+    return courses.value.find(item => item.id === Number(course_id.value))
+  }
+})
+const currentArticleIndex = computed(() => {
+  return course.value?.l?.findIndex(item => item.id === Number(article_id.value))
+})
+const neighborLeft = computed(() => {
+  if (currentArticleIndex.value === undefined || currentArticleIndex.value <= 0) return {}
+  return course.value?.l[currentArticleIndex.value - 1]
+})
+const neighborRight = computed(() => {
+  if (currentArticleIndex.value === undefined || currentArticleIndex.value === -1 || currentArticleIndex.value >= course.value?.l.length - 1) return {}
+  return course.value?.l[currentArticleIndex.value + 1]
+})
+
+onMounted(() => {
+  if (!course.value) {
+    alert('未找到课程: ' + courseType.value + '/' + course_id.value)
+    return
+  }
+  getArticle(courseType.value, course_id.value, article_id.value)
+})
+
+function getArticle(courseType, course_id, article_id) {
   return new Promise((resolve, reject) => {
     loading.value = true
     axios({
-      url: `${baseUrl}/geektime/column/list/${column_id}/${article_id}.json`,
+      url: `${baseUrl}/geektime/${courseType}/list/${course_id}/${article_id}.json`,
       method: 'GET'
     }).then(res => {
       loading.value = false
-      console.log('[getArticle] axios then:', res)
+      console.log('[getArticle] axios then:', `courseType=${courseType}, course_id=${course_id}, article_id=${article_id}`, res)
       const { status, data } = res
       if (status === 200 && data) {
         data.comments = (data.comments || []).map(item => ({ ...item, expand: false }))
@@ -175,14 +221,14 @@ function getArticle(column_id, article_id) {
       }
     }).catch(err => {
       loading.value = false
-      console.error('[getArticle] axios catch:', err)
+      console.error('[getArticle] axios catch:', `courseType=${courseType}, course_id=${course_id}, article_id=${article_id}`, err)
       alert('[getArticle] catch error:' + err.message)
       reject(err)
     })
   })
 }
 
-async function jump(column_id, article_id, action) {
+async function jump(courseType, course_id, article_id, action) {
   if (!article_id) {
     if (action === 'prev') {
       alert('已经是第一讲')
@@ -192,7 +238,7 @@ async function jump(column_id, article_id, action) {
     return
   }
 
-  await getArticle(column_id, article_id)
+  await getArticle(courseType, course_id, article_id)
 
   // window.scroll({
   //   top: 0,
@@ -203,14 +249,15 @@ async function jump(column_id, article_id, action) {
   //   behavior: 'smooth'
   // })
 
+  // window.location.href = `./article.html?type=${courseType}&course_id=${course_id}&article_id=${article_id}`
   router.replace({
     path: '/geektime/column/article',
     query: {
-      column_id,
+      type: courseType,
+      course_id,
       article_id
     }
   })
-  // window.location.href = `./article.html?column_id=${column_id}&article_id=${article_id}`
 }
 
 function getUserType(user_type) {
@@ -249,10 +296,6 @@ function toggleDiscussion(comment) {
     comment.expand = !comment.expand
   }
 }
-
-onMounted(() => {
-  getArticle(column_id.value, article_id.value)
-})
 </script>
 
 <style>

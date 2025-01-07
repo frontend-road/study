@@ -1,6 +1,7 @@
 import { provide, onMounted } from 'vue'
 import { defineClientConfig, withBase } from 'vuepress/client'
 import columns from './public/geektime/column/columns.json'
+import videoCourses from './public/geektime/video/columns.json'
 
 // https://vuepress.vuejs.org/zh/advanced/cookbook/usage-of-client-config.html
 export default defineClientConfig({
@@ -16,6 +17,7 @@ export default defineClientConfig({
   // },
   setup() {
     provide('geektime_columns', columns)
+    provide('geektime_videoCourses', videoCourses)
     onMounted(() => {
       // import('./public/font/iconfont/iconfont.js').then(icon => {
       //   console.log('client setup onMounted: iconfont', icon)
