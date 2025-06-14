@@ -34,7 +34,7 @@ export default defineUserConfig({
         text: '极客时间',
         children: [
           {
-            text: '专栏',
+            text: '体系课程',
             link: '/geektime/column/'
           },
           {
