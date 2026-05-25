@@ -1,3 +1,4 @@
+import path from 'node:path'
 import { defineUserConfig } from 'vuepress'
 import { viteBundler } from '@vuepress/bundler-vite'
 import { defaultTheme } from '@vuepress/theme-default'
@@ -8,6 +9,7 @@ const base = '/study/'
 export default defineUserConfig({
   bundler: viteBundler(),
   base,
+  clientConfigFile: path.resolve(__dirname, './client.ts'),
   lang: 'zh-CN',
   title: 'Study',
   description: 'Hello World',

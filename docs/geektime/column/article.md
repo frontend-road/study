@@ -10,7 +10,8 @@
 
 <h1>{{article.title}}</h1>
 <div v-if="courseType === 'video' && article.content" style="padding-top:20px;padding-bottom:20px;font-size:20px;font-weight:500;">本节摘要</div>
-<div v-html="article.content"></div>
+<!-- <div v-html="article.content"></div> -->
+<div v-html="articleContent"></div>
 
 <hr>
 <div>
@@ -134,6 +135,7 @@
 </div>
 
 <script setup>
+import { withBase } from 'vuepress/client'
 import { ref, computed, onMounted, nextTick, inject } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
@@ -141,8 +143,7 @@ import hljs from 'highlight.js'
 // import 'highlight.js/styles/github.css'
 import 'highlight.js/styles/atom-one-dark.css'
 
-// const baseUrl = window.location.protocol + '//' + window.location.host
-const baseUrl = '/study'
+// const baseUrl = '/study'
 
 const columns = inject('geektime_columns')
 const videoCourses = inject('geektime_videoCourses')
@@ -166,6 +167,26 @@ const comments = computed(() => {
 const courseType = computed(() => route.query.type)
 const course_id = computed(() => route.query.course_id)
 const article_id = computed(() => route.query.article_id)
+const articleContent = computed(() => {
+  if (!article.value.content) return ''
+  /**
+   * 替换流程拆解
+   * 以你的例子为例，base = /study/，articleId = 101157301：
+   * 原始 content:
+   *   <img src="./images/976991_1.jpg" alt="图片">
+   *     ↓ 正则捕获 fileName = "976991_1.jpg"
+   *     ↓ 拼路径: /geektime/column/list/101157301/images/976991_1.jpg
+   *     ↓ withBase 加 base
+   * 最终 DOM:
+   * <img src="/study/geektime/column/list/101157301/images/976991_1.jpg" alt="图片">
+   */
+  return article.value.content.replace(
+    // 匹配 src="./images/xxx" 并替换为 withBase 之后的完整路径
+    /<img\s+src="\.\/images\/([^"]+)"/gi,
+    (_, fileName) =>
+      `<img src="${withBase(`/geektime/${courseType.value}/list/${course_id.value}/images/${fileName}`)}"`
+  )
+})
 
 const courses = computed(() => {
   if (courseType.value === 'column') {
@@ -203,7 +224,8 @@ function getArticle(courseType, course_id, article_id) {
   return new Promise((resolve, reject) => {
     loading.value = true
     axios({
-      url: `${baseUrl}/geektime/${courseType}/list/${course_id}/${article_id}.json`,
+      // url: `${baseUrl}/geektime/${courseType}/list/${course_id}/${article_id}.json`,
+      url: `${withBase(`/geektime/${courseType}/list/${course_id}/${article_id}.json`)}`,
       method: 'GET'
     }).then(res => {
       loading.value = false
