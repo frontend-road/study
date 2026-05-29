@@ -1,1 +1,1 @@
-{"id":72986,"title":"150 | OAuth2用户名密码模式实验(lab05)","content":"","comments":[]}
+{"id":72986,"title":"150 | OAuth2用户名密码模式实验(lab05)","content":"本课程演示 OAuth 2.0 用户名密码模式（Password Credentials Grant）的实验流程，该规范定义于 RFC 6749 第 4.3 节。与前两种需浏览器介入的模式不同，此模式允许客户端直接收集用户凭证，通过 API 调用获取令牌，适用于高度信任的自有应用。实验利用 Postman 工具向本地授权服务器的/token 端点发送 POST 请求。请求构建包含三个核心要素：首先采用 Basic 认证方式传递客户端凭据（client_id 与 client_secret）；其次在参数中指定 grant_type 为 password；最后填入预注册的用户名、密码及 scope 范围。发送请求后，服务器验证通过即返回 access_token 和 refresh_token。该过程证明了用户名密码模式本质是一次直接的接口调用，无需浏览器跳转即可完成身份验证与令牌颁发，流程简洁高效。","comments":[]}
