@@ -1,1 +1,1 @@
-{"id":804393,"title":"07｜AI Agent主流框架介绍​​","content":"","comments":[]}
+{"id":804393,"title":"07｜AI Agent主流框架介绍​​","content":"介绍了主流AI Agent框架及平台。OpenAI GPTs作为先驱，模型能力强大，支持任务规划与拆分，但需自行对接插件。字节跳动的Coze免费且引入工作流概念，避免任务遗漏，但模型能力较弱。智谱清言智能体平台界面和使用方式类似GPTs。面向C端用户，可选GPTs、Coze或智谱清言。B端场景下，FastGPT知识库功能出色，Dify侧重智能体与工作流并拥有丰富插件，两者均开源。微软AutoGen支持代码调度，DB-GPT适用于数据分析和Text-to-SQL生成。LangChain适合底层编码。选择合适的框架对实现特定需求至关重要。","comments":[]}

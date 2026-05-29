@@ -1,1 +1,1 @@
-{"id":779588,"title":"05  |  AI技术在Excel中的工具概览","content":"","comments":[]}
+{"id":779588,"title":"05  |  AI技术在Excel中的工具概览","content":"本课程介绍了AI与Excel结合的方法，首先讲解了AI实现工具，包括编程语言（如Python）、机器学习库（如TensorFlow、PyTorch）及开发平台（如Jupyter Notebook、PyCharm）。硬件工具方面，CPU和GPU是主要计算资源。模型训练工具涉及数据预处理、特征工程、模型选择与优化等。接着介绍了AIGC的概念，即人工智能生成内容，其关键技术有自然语言处理、深度学习及机器学习，应用领域包括文本创作、图像生成和音频生成。AIGC的优势在于提高内容生产效率和个性化推荐，但也面临内容质量不稳定、版权道德问题等挑战。AIGC基于AI技术，推动了AI的发展。最后通过文心一言示例展示了如何利用AIGC辅助Excel操作，如生成公式、创建包含模拟数据的Excel文件。课程还指导了Python和PyCharm的安装步骤，为后续实践打下基础。","comments":[]}

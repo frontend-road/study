@@ -1,1 +1,1 @@
-{"id":786681,"title":"46｜RAG技能添加","content":"","comments":[]}
+{"id":786681,"title":"46｜RAG技能添加","content":"本节课介绍了如何为AutoGen添加本地知识库检索功能。首先创建一个名为local docs search的新技能，然后直接创建一个名为agent workflow with knowledge的工作流。修改primary提示词，使其根据用户输入调用local docs search技能来检索本地数据库并返回相关内容。将技能和模型添加到工作流后保存。在playground中创建该工作流，并通过提问测试其功能，如询问“大白AI的人工智能课程培训特色”。系统会调用search knowledge方法从本地数据库检索相关信息，成功返回了关于培训特色的描述，包括通俗易懂、全程实战等。此方法支持大量文档的快速匹配与检索，结合业务数据及agent能力，可构建复杂且高效的工作流程。","comments":[]}

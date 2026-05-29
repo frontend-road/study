@@ -1,1 +1,1 @@
-{"id":793865,"title":"37｜在VSCode环境下的TypeScript开发过程全解（上）","content":"","comments":[]}
+{"id":793865,"title":"37｜在VSCode环境下的TypeScript开发过程全解（上）","content":"本讲讨论了在VSCode环境下使用TypeScript进行开发的全过程，包括编译、构建、打包及运行调试。首先介绍了开发流程概要，强调了TypeScript生态提供的完整开发生态。接着详细讲解了三种编译和打包方式：默认编译所有文件、打包相互依赖的模块以及将无依赖关系的文件合并为全局代码。运行部分解释了TypeScript代码需先编译成JavaScript才能执行，并列举了几种支持TypeScript的JavaScript引擎。随后演示了如何在VSCode中配置Deno和TS-Node以实现TypeScript代码的运行与调试。对于Deno，通过安装扩展并配置launch.json即可直接运行或调试；TS-Node则需要手动添加配置项，指定正确的可执行路径。最后简述了Bun的独特调试要求，即必须在服务上运行，可通过附着到浏览器或本地启动调试服务来实现。这些内容展示了TypeScript开发环境的灵活性与强大功能。","comments":[]}

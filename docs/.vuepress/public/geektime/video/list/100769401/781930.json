@@ -1,1 +1,1 @@
-{"id":781930,"title":"34｜Stable Diffusion应用场景入门：从粘土人到动漫游戏世界","content":"","comments":[]}
+{"id":781930,"title":"34｜Stable Diffusion应用场景入门：从粘土人到动漫游戏世界","content":"本次直播分享了使用Stable Diffusion生成粘土人、动漫和游戏元素的方法。首先介绍了如何在Library AI等平台下载模型，并通过调整提示词和参数生成高质量的粘土人图像。强调了控制网（Control Net）和ADL插件的重要性，以解决生成图像中的比例和人脸问题。接着演示了使用Anything模型和Ghost Mix模型生成动漫风格图像，展示了VAE对颜色的影响。最后，讨论了如何利用Stable Diffusion生成游戏元素，如武器和图标，并介绍了罗拉（Lora）模型的作用及下载方法。直播还解答了观众关于真人与二次元生成逻辑、罗拉模型的加载方式以及苹果电脑本地部署等问题。","comments":[]}

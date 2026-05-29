@@ -1,1 +1,1 @@
-{"id":786570,"title":"26｜FastGPT接入本地大模型：ChatGLM3","content":"","comments":[]}
+{"id":786570,"title":"26｜FastGPT接入本地大模型：ChatGLM3","content":"本节课介绍了如何将私有部署的大模型接入FastGPT，以ChatGLM-6B为例。首先，在AutoDL平台上选择合适的算力资源，如4090显卡，并创建服务器。接着，通过Modelscope下载ChatGLM-6B模型前需安装Git LFS。模型下载完成后，进入目录查看文件。为运行模型，还需克隆ChetGLM3项目并安装其依赖。根据网络情况，可手动导入项目包。安装完依赖后，编辑API server配置文件，修改模型路径、端口号（从8000改为6006）及注释掉嵌入式模型相关行。保存设置后启动API server。在AutoDL平台的自定义服务中获取模型推理服务地址，使用Postman测试该服务，发送请求并收到回复，确认模型服务正常运行。","comments":[]}

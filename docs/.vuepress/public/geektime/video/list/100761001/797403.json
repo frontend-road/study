@@ -1,1 +1,1 @@
-{"id":797403,"title":"42｜管理与组织TypeScript文件与工具套件","content":"","comments":[]}
+{"id":797403,"title":"42｜管理与组织TypeScript文件与工具套件","content":"本讲主要讨论了如何在VSCode环境下组织和管理TypeScript项目文件与工具。首先，介绍了通过创建tsconfig.json文件来使空文件夹成为TypeScript工作目录，并解释了include、exclude及files配置项的作用。接着，展示了如何使用VSCode的缺省配置初始化tsconfig.json，并强调了exclude默认排除node_modules目录的重要性。随后，讲解了通过extends配置继承其他tsconfig.json以简化项目初始配置的方法。此外，还探讨了使用tsconfig.json中的plugins数组安装插件支持tsserver，以及如何利用VSCode的扩展推荐功能保持开发环境一致。最后，总结了rootDir和rootDirs的区别：前者决定输出目录结构，后者影响模块查找路径。整个课程旨在帮助开发者更好地理解和应用TypeScript项目的文件组织和工具管理技巧。","comments":[]}

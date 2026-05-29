@@ -1,1 +1,1 @@
-{"id":797405,"title":"44｜为TypeScript代码写测试用例","content":"","comments":[]}
+{"id":797405,"title":"44｜为TypeScript代码写测试用例","content":"TypeScript代码测试面临挑战，传统JavaScript测试方法无法有效检测TypeScript类型编程。一种手工编写测试的方法是通过查看类型结果来验证正确性，但这种方法效率低下。早期的TypeScript项目如spec.ts提供了一种断言机制，利用tsc编译错误信息作为测试反馈，但会带来代码污染问题。最新的解决方案是tstyche，一个专门针对TypeScript类型计算的测试工具。tstyche支持expect语法进行类型比较，不会在编译时产生错误，且能与JavaScript测试工具无缝集成。通过示例展示了如何使用tstyche转换手工编写的测试用例，并介绍了其丰富的expect方法，如toBe和toMatch。tstyche还具备独立运行环境和配置选项，允许在多个TypeScript版本中测试。最后强调了tstyche的关键特性，即能在同一测试块中同时处理JavaScript和TypeScript测试用例，极大提高了实际工程中的测试效率。","comments":[]}

@@ -1,1 +1,1 @@
-{"id":783127,"title":"17｜Stable Diffusion+LcLight+BrushNet+Runway完成动态产品图","content":"","comments":[]}
+{"id":783127,"title":"17｜Stable Diffusion+LcLight+BrushNet+Runway完成动态产品图","content":"本节课介绍了如何使用LcLight等工具对图片进行背景替换和打光处理，以生成动态产品展示效果。首先，通过加载图像并使用语义模型获取鞋子的蒙版，再经深度预处理器处理，得到背景遮罩。接着，利用BrushNet生成初步融合背景的图片，但因光影不匹配而显得不自然。为解决此问题，引入LaMa补充背景细节，并使用LcLight调整光源，使前景与背景更协调。LcLight支持1.5模型，可选择不同光源位置、明度及颜色，且能通过曲线编辑器自定义光源路径。对于静态图片动态打光，无需加载动态模型，仅需绘制光源路径并通过AnimateDiff生成多帧。最终，结合Pika或Runway生成动态效果，实现夏日海滩场景下的鞋子动态展示。课程强调了关键帧融合方法的重要性，并布置作业要求学员实践相同技术。下节课将介绍Deforum及其在视频生成中的应用。","comments":[]}

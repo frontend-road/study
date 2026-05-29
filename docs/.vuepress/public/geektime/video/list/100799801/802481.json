@@ -1,1 +1,1 @@
-{"id":802481,"title":"06｜什么是KG-enhanced prompt？","content":"","comments":[]}
+{"id":802481,"title":"06｜什么是KG-enhanced prompt？","content":"知识图谱增强的提示技术（KG Enhanced Prompt）在生物医疗等领域表现出色。该方法通过实体识别和链接召回子图，将子图转化为自然语言句子，并与问题向量在同一空间比对筛选出top k结果，从而提高问答准确率。例如，在GPT3.5和Llama2 13B模型上，加入KG后精度显著提升4-7个百分点。此外，KG ranking方案通过实体提取、链接及三元组排序来优化结果，采用相似度计算、答案扩展等策略进行重排。Graph-Based Retriever则针对长尾知识，利用图谱距离检索相关文本块，结合语义相似性提高召回全面性。Knowledge Graph Prompting进一步探讨了图谱在内容桥接、对比查询和结构化查询中的应用，通过构建文档图谱解决多文档路由问题，实现高效的信息检索。","comments":[]}

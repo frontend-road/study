@@ -1,1 +1,1 @@
-{"id":786677,"title":"51｜DB-GPT介绍","content":"","comments":[]}
+{"id":786677,"title":"51｜DB-GPT介绍","content":"DBGPT是一个专注于数据应用开发的框架，与AutoGPT和MetaGPT等主要面向业务应用开发的框架不同。它提供五大核心能力：拆Data、拆DB、Chat Excel、Chat Knowledge及Dashboard。拆Data允许用户通过自然语言查询并分析数据；拆DB则将自然语言转化为SQL语句执行数据库操作；Chat Excel支持对Excel格式数据进行对话式统计分析；Chat Knowledge可将文档或网站内容向量化存储于数据库中，便于后续查询；Dashboard基于前两者生成可视化图表。此外，DBGPT还具备Agent功能，预设多种内置Agent如代码执行、数据分析等，并支持自定义Agent以完成特定任务。该平台已适配主流数据库（如ClickHouse、MySQL）和多种开源及商业模型（例如Code Llama），方便用户快速连接数据库并利用现有模型资源。同时，DBGPT提供了插件自定义、提示词设置以及微调框架等功能，进一步增强了其灵活性与实用性。","comments":[]}

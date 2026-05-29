@@ -1,1 +1,1 @@
-{"id":795252,"title":"41｜TypeScript扩展了哪些应用特性","content":"","comments":[]}
+{"id":795252,"title":"41｜TypeScript扩展了哪些应用特性","content":"TypeScript扩展了JavaScript的多种应用特性，包括类型标注、断言、函数类型签名、类声明扩展及泛型等。它增强了JavaScript的核心类型概念，如在变量声明时添加类型标注、使用as进行类型断言，并引入了public和private等可见性修饰符。此外，TypeScript还支持元组、只读数组、枚举和命名空间等特定类型。对于ES规范中的新特性，TypeScript提前实现了部分草案内容。编译过程由TSConfig文件配置，关键参数为Target、Module和Lib，分别决定目标环境、模块方式及全局库。通过这些配置，TypeScript可以将高版本语法转换为低版本兼容代码。TypeScript还支持.js文件导入与类型检查，并提供了丰富的模块管理功能。最后，TypeScript通过编辑器集成、运行环境支持及插件等方式，增强了开发体验。","comments":[]}

@@ -1,1 +1,1 @@
-{"id":803633,"title":"54｜跨模块扩展技术","content":"","comments":[]}
+{"id":803633,"title":"54｜跨模块扩展技术","content":"本课程讲解了JavaScript和TypeScript中跨模块扩展技术。在JavaScript中，通过导出类、修改原型或全局变量实现模块间的数据交换，但这种方式缺乏显式性，导致其他模块难以感知扩展。TypeScript提供了更强大的模块扩展机制，包括使用`declare module`重新定义已有模块接口，以及通过命名空间合并同名接口。此外，TypeScript支持CommonJS风格的模块导入，但需注意配置兼容性。通过`declare global`可以扩展全局对象，但仅限于模块文件。最后，讨论了环境文件（Ambient modules）的概念，用于非模块文件中的全局扩展。这些技术解决了跨模块扩展时的类型安全性和可维护性问题。","comments":[]}

@@ -1,1 +1,1 @@
-{"id":791513,"title":"36｜在VSCode中管理TypeScript","content":"","comments":[]}
+{"id":791513,"title":"36｜在VSCode中管理TypeScript","content":"本课程介绍了在VSCode中使用TypeScript的基本方法。首先，讲解了VSCode的文件、文件夹和工作空间三个层次，并指出直接打开文件时VSCode不会将其视为项目处理，导致类型检查错误。通过打开文件夹或创建tsconfig.json文件，可以将文件纳入同一项目环境，从而解决类型检查问题。接着，讨论了如何在VSCode中管理不同版本的TypeScript引擎，包括内置的tsserver和全局安装的tsc。可以通过配置settings.json来指定tsserver使用的Node.js路径，确保与开发环境一致。此外，还介绍了多Folder的工作空间管理和.code-workspace文件的使用。最后，详细说明了tsc的三种使用模式：单文件编译、基于tsconfig.json的项目编译以及构建项目组，每种模式适用于不同的开发场景。","comments":[]}

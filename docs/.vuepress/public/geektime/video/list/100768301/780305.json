@@ -1,1 +1,1 @@
-{"id":780305,"title":"10｜Stable Diffusion ComfyUI基础工作流搭建实操","content":"","comments":[]}
+{"id":780305,"title":"10｜Stable Diffusion ComfyUI基础工作流搭建实操","content":"本节课介绍了如何使用ComfyUI进行图像和视频生成，重点讲解了基于Stable Diffusion原理搭建基础工作流的方法。首先，通过加载Checkpoint模型并利用CLIP对文本进行编码，再结合K采样器在潜空间中生成图像，最后用VAE解码为实际可见的图片。对于图生图，只需将初始图像经过VAE编码后输入U-Net即可。课程还详细解释了关键参数如随机种子、步数、CFG值等的作用及其调整方法，强调了CFG值选择的重要性及依据模型建议值调整的必要性。此外，推荐了Efficiency Modes插件以简化复杂工作流，并指导学生从civitai网站下载适合的模型。最后布置作业，要求学生独立构建基础工作流，巩固所学知识。","comments":[]}

@@ -1,1 +1,1 @@
-{"id":812756,"title":"05｜金融领域微调模型项目解读：FinGPT、Cornucopia-LLaMA-Fin-Chinese 等","content":"","comments":[]}
+{"id":812756,"title":"05｜金融领域微调模型项目解读：FinGPT、Cornucopia-LLaMA-Fin-Chinese 等","content":"金融领域模型微调方法多样，以Frankfurt、Bloomberg和FANGBT为例。Frankfurt通过自监督任务如Spend Prediction、大小写预测等提升模型性能，使用FinanceWeb等特定数据集增强训练效果。Bloomberg模型拥有500亿参数，采用GDP架构，融合大量金融相关数据进行训练，在金融QA任务中表现优异。FANGBT提供了一套金融微调架构工具，包括数据源集成、数据工程处理及API接口设计，支持多种应用场景。据宝盆项目基于Lama-7B底座，利用爬取的金融数据并结合GPT-4优化问答对，实现高效微调。渲染2.0则在Bloom 176B基础上进行混合微调，避免灾难性遗忘问题，通过知识引导指令生成技术构建多样化训练数据。这些方法展示了金融领域模型微调的不同策略与实践路径。","comments":[]}
