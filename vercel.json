@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "npm install --no-audit --no-fund",
-  "buildCommand": "npm run docs:build",
+  "buildCommand": "npm run docs:build:vercel",
   "outputDirectory": "docs/.vuepress/dist"
 }
