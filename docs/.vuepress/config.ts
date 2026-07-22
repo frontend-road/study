@@ -5,11 +5,12 @@ import { defaultTheme } from '@vuepress/theme-default'
 // import { prismjsPlugin } from '@vuepress/plugin-prismjs'
 // import columns from './public/geektime/column/columns.json'
 
-const base = '/study/'
+const base = process.env.VERCEL ? '/' : '/study/'
+const clientConfigFile = path.resolve(__dirname, './client.ts').replace(/\\/g, '/')
 export default defineUserConfig({
   bundler: viteBundler(),
   base,
-  clientConfigFile: path.resolve(__dirname, './client.ts'),
+  clientConfigFile,
   lang: 'zh-CN',
   title: 'Study',
   description: 'Hello World',
