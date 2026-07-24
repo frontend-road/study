@@ -6,6 +6,10 @@ import { spawn } from 'node:child_process'
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const sourcePublic = path.join(projectRoot, 'docs', '.vuepress', 'public')
 const vercelPublic = path.join(projectRoot, 'docs', '.vuepress', 'public-vercel')
+const columnIds = (process.env.VERCEL_COLUMN_IDS || '100772701')
+  .split(',')
+  .map(id => id.trim())
+  .filter(Boolean)
 
 await rm(vercelPublic, { recursive: true, force: true })
 await mkdir(vercelPublic, { recursive: true })
@@ -21,6 +25,14 @@ await cp(
   path.join(sourcePublic, 'geektime', 'column', 'columns.json'),
   path.join(vercelPublic, 'geektime', 'column', 'columns.json'),
 )
+
+for (const columnId of columnIds) {
+  await cp(
+    path.join(sourcePublic, 'geektime', 'column', 'list', columnId),
+    path.join(vercelPublic, 'geektime', 'column', 'list', columnId),
+    { recursive: true },
+  )
+}
 
 await cp(
   path.join(sourcePublic, 'geektime', 'video'),
