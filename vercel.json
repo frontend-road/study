@@ -2,5 +2,15 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "npm install --no-audit --no-fund",
   "buildCommand": "npm run docs:build:vercel",
-  "outputDirectory": "docs/.vuepress/dist"
+  "outputDirectory": "docs/.vuepress/dist",
+  "rewrites": [
+    {
+      "source": "/geektime/column/list/:courseId/:articleId.json",
+      "destination": "https://raw.githubusercontent.com/lyx123v/study/main/docs/.vuepress/public/geektime/column/list/:courseId/:articleId.json"
+    },
+    {
+      "source": "/geektime/column/list/:courseId/images/:fileName",
+      "destination": "https://raw.githubusercontent.com/lyx123v/study/main/docs/.vuepress/public/geektime/column/list/:courseId/images/:fileName"
+    }
+  ]
 }

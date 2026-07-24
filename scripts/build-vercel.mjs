@@ -6,7 +6,7 @@ import { spawn } from 'node:child_process'
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const sourcePublic = path.join(projectRoot, 'docs', '.vuepress', 'public')
 const vercelPublic = path.join(projectRoot, 'docs', '.vuepress', 'public-vercel')
-const columnIds = (process.env.VERCEL_COLUMN_IDS || '100772701')
+const columnIds = (process.env.VERCEL_COLUMN_IDS || '100772701,100043901')
   .split(',')
   .map(id => id.trim())
   .filter(Boolean)
