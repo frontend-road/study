@@ -13,6 +13,25 @@
 <!-- <div v-html="article.content"></div> -->
 <div v-html="articleContent"></div>
 
+<video v-if="courseType === 'video' && videoUrl" controls>
+  <source :src="videoUrl" type="video/mp4">
+</video>
+
+<pre>
+  <code>
+  ffprobe -v error -show_format -show_streams -print_format json input.ts
+
+  ffmpeg -i input.ts -c:v libx264 -preset fast -c:a aac output.mp4
+
+  ffmpeg -i input.ts -c:v libx264 -preset fast -crf 23 -c:a aac output.mp4
+  ffmpeg -i input.ts -c:v copy -c:a aac output.mp4
+  参数说明：
+  - -preset fast — 转换速度快，但质量稍低（可改 medium 或 slow 提高质量但更慢）
+  - -crf 23 — 质量控制（0-51，越低越好，23 是平衡值）
+  - -c:a aac — 音频编码为 AAC
+  </code>
+</pre>
+
 <hr>
 <div>
   <button @click="jump(courseType, course_id, neighborLeft.id, 'prev')">上一讲: {{neighborLeft.t}}</button>
@@ -152,6 +171,7 @@ const route = useRoute()
 const router = useRouter()
 const loading = ref(false)
 const article = ref({})
+const videoUrl = ref('')
 // const neighborLeft = computed(() => {
 //   return article.value?.neighbors?.left || {}
 // })
@@ -236,6 +256,13 @@ function getArticle(courseType, course_id, article_id) {
         document.title = data.title
         article.value = data
         nextTick(() => hljs.highlightAll())
+
+        // if (courseType === 'video') {
+        //   const courseName = course.value.n.replace(/\s+/g, '')
+        //   const artitleName = article.value.title.replace(' | ', '-').replace(/\s+/g, '')
+        //   videoUrl.value = `${withBase(`/geektime/${courseType}/geektime/${courseName}/${artitleName}.ts`)}`
+        //   console.log('videoUrl:', videoUrl.value)
+        // }
         resolve(data)
       } else {
         alert('[getArticle] axios status:' + status)

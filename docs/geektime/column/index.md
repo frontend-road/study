@@ -52,7 +52,7 @@ function handleSearch(evt) {
 
 function handleSearchVideo(evt) {
   console.log('handleSearchVideo:', evt.target.value, searchVideoName.value)
-  const name = searchVideoName.value
+  const name = searchVideoName.value.toLowerCase()
   if (!name) {
     videoCourses.value = geektimeVideoCourses
   } else {
